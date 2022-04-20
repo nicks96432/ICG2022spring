@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ICG WebGL &mdash; HW1</title>
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <canvas id="ICG-canvas" width="1600" height="800"></canvas>
+        </div>
+        <form class="mt-3">
+            <div class="row">
+                <div class="col-4">
+                    <h3>Item 1</h3>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="shader0">shader</label>
+                        <select name="shader1" id="shader0" class="form-select">
+                            <option value="cartoon">Cartoon</option>
+                            <option value="none">None</option>
+                            <option value="flat" selected>Flat</option>
+                            <option value="gouraud">Gouraud</option>
+                            <option value="phong">Phong</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="model0">model</label>
+                        <select name="model0" id="model0" class="form-select">
+                            <option value="Car_road">Car_road</option>
+                            <option value="Church_s">Church_s</option>
+                            <option value="Csie">Csie</option>
+                            <option value="Easter">Easter</option>
+                            <option value="Fighter">Fighter</option>
+                            <option value="Kangaroo">Kangaroo</option>
+                            <option value="Longteap">Longteap</option>
+                            <option value="Mercedes">Mercedes</option>
+                            <option value="Mig27">Mig27</option>
+                            <option value="Patchair">Patchair</option>
+                            <option value="Plant">Plant</option>
+                            <option value="Teapot" selected>Teapot</option>
+                            <option value="Tomcat">Tomcat</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">constants</div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Ka</span>
+                            <input class="form-control" id="ka0" name="ka0" step="0.1" type="number" value="0.1">
+                            <span class="input-group-text">Ks</span>
+                            <input class="form-control" id="ks0" name="ks0" step="0.1" type="number" value="0.6">
+                            <span class="input-group-text">Kd</span>
+                            <input class="form-control" id="kd0" name="kd0" step="0.1" type="number" value="0.2">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">shininess</span>
+                            <input class="form-control" id="alpha0" min="0" name="alpha0" step="0.5" type="number"
+                                value="5.0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">position</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="x0" name="x0" type="number" value="-35">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="y0" name="y0" type="number" value="0">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="z0" name="z0" type="number" value="-75">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">rotation speed (degree per frame)</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="rotx0" name="rotx0" step="0.1" type="number" value="0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="roty0" name="roty0" step="0.1" type="number" value="0.03">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="rotz0" name="rotz0" step="0.1" type="number" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">scale</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="scalex0" name="scalex0" type="number" value="1">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="scaley0" name="scaley0" type="number" value="1">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="scalez0" name="scalez0" type="number" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">shear</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="shearx0" name="shearx0" type="number" value="90">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="sheary0" name="sheary0" type="number" value="90">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="shearz0" name="shearz0" type="number" value="90">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h3>Item 2</h3>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="shader1">shader</label>
+                        <select name="shader1" id="shader1" class="form-select">
+                            <option value="cartoon">Cartoon</option>
+                            <option value="none">None</option>
+                            <option value="flat">Flat</option>
+                            <option value="gouraud" selected>Gouraud</option>
+                            <option value="phong">Phong</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="model1">model</label>
+                        <select name="model1" id="model1" class="form-select">
+                            <option value="Car_road">Car_road</option>
+                            <option value="Church_s">Church_s</option>
+                            <option value="Csie">Csie</option>
+                            <option value="Easter">Easter</option>
+                            <option value="Fighter">Fighter</option>
+                            <option value="Kangaroo">Kangaroo</option>
+                            <option value="Longteap">Longteap</option>
+                            <option value="Mercedes">Mercedes</option>
+                            <option value="Mig27">Mig27</option>
+                            <option value="Patchair">Patchair</option>
+                            <option value="Plant">Plant</option>
+                            <option value="Teapot" selected>Teapot</option>
+                            <option value="Tomcat">Tomcat</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">constants</div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Ka</span>
+                            <input class="form-control" id="ka1" name="ka1" step="0.1" type="number" value="0.1">
+                            <span class="input-group-text">Ks</span>
+                            <input class="form-control" id="ks1" name="ks1" step="0.1" type="number" value="0.6">
+                            <span class="input-group-text">Kd</span>
+                            <input class="form-control" id="kd1" name="kd1" step="0.1" type="number" value="0.2">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">shininess</span>
+                            <input class="form-control" id="alpha1" min="0" name="alpha1" step="0.5" type="number"
+                                value="5.0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">position</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="x1" name="x1" type="number" value="0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="y1" name="y1" type="number" value="0">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="z1" name="z1" type="number" value="-75">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">rotation speed (degree per frame)</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="rotx1" name="rotx1" step="0.1" type="number" value="0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="roty1" name="roty1" step="0.1" type="number" value="0.03">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="rotz1" name="rotz1" step="0.1" type="number" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">scale</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="scalex1" name="scalex1" type="number" value="1">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="scaley1" name="scaley1" type="number" value="1">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="scalez1" name="scalez1" type="number" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">shear</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="shearx1" name="shearx1" type="number" value="90">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="sheary1" name="sheary1" type="number" value="90">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="shearz1" name="shearz1" type="number" value="90">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h3>Item 3</h3>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="shader2">shader</label>
+                        <select name="shader2" id="shader2" class="form-select">
+                            <option value="cartoon">Cartoon</option>
+                            <option value="none">None</option>
+                            <option value="flat">Flat</option>
+                            <option value="gouraud">Gouraud</option>
+                            <option value="phong" selected>Phong</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="model2">model</label>
+                        <select name="model2" id="model2" class="form-select">
+                            <option value="Car_road">Car_road</option>
+                            <option value="Church_s">Church_s</option>
+                            <option value="Csie">Csie</option>
+                            <option value="Easter">Easter</option>
+                            <option value="Fighter">Fighter</option>
+                            <option value="Kangaroo">Kangaroo</option>
+                            <option value="Longteap">Longteap</option>
+                            <option value="Mercedes">Mercedes</option>
+                            <option value="Mig27">Mig27</option>
+                            <option value="Patchair">Patchair</option>
+                            <option value="Plant">Plant</option>
+                            <option value="Teapot" selected>Teapot</option>
+                            <option value="Tomcat">Tomcat</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">constants</div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Ka</span>
+                            <input class="form-control" id="ka2" name="ka2" step="0.1" type="number" value="0.1">
+                            <span class="input-group-text">Ks</span>
+                            <input class="form-control" id="ks2" name="ks2" step="0.1" type="number" value="0.6">
+                            <span class="input-group-text">Kd</span>
+                            <input class="form-control" id="kd2" name="kd2" step="0.1" type="number" value="0.2">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">shininess</span>
+                            <input class="form-control" id="alpha2" min="0" name="alpha2" step="0.5" type="number"
+                                value="5.0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">position</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="x2" name="x2" type="number" value="35">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="y2" name="y2" type="number" value="0">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="z2" name="z2" type="number" value="-75">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">rotation speed (degree per frame)</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="rotx2" name="rotx2" step="0.1" type="number" value="0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="roty2" name="roty2" step="0.1" type="number" value="0.03">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="rotz2" name="rotz2" step="0.1" type="number" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">scale</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="scalex2" name="scalex2" type="number" value="1">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="scaley2" name="scaley2" type="number" value="1">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="scalez2" name="scalez2" type="number" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">shear</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="shearx2" name="shearx2" type="number" value="90">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="sheary2" name="sheary2" type="number" value="90">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="shearz2" name="shearz2" type="number" value="90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h3>Light 1</h3>
+                    <div class="form-group mb-3">
+                        <div class="form-label">position</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="light-x0" name="light-x0" type="number" value="-1000.0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="light-y0" name="light-y0" type="number" value="1000.0">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="light-z0" name="light-z0" type="number" value="1000.0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">color</div>
+                        <div class="input-group">
+                            <span class="input-group-text">r</span>
+                            <input class="form-control" id="light-r0" max="255" min="0" name="light-r0" type="number"
+                                value="234">
+                            <span class="input-group-text">g</span>
+                            <input class="form-control" id="light-g0" max="255" min="0" name="light-g0" type="number"
+                                value="91">
+                            <span class="input-group-text">b</span>
+                            <input class="form-control" id="light-b0" max="255" min="0" name="light-b0" type="number"
+                                value="118">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h3>Light 2</h3>
+                    <div class="form-group mb-3">
+                        <div class="form-label">position</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="light-x1" name="light-x1" type="number" value="-1000.0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="light-y1" name="light-y1" type="number" value="-1000.0">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="light-z1" name="light-z1" type="number" value="1000.0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">color</div>
+                        <div class="input-group">
+                            <span class="input-group-text">r</span>
+                            <input class="form-control" id="light-r1" max="255" min="0" name="light-r1" type="number"
+                                value="100">
+                            <span class="input-group-text">g</span>
+                            <input class="form-control" id="light-g1" max="255" min="0" name="light-g1" type="number"
+                                value="149">
+                            <span class="input-group-text">b</span>
+                            <input class="form-control" id="light-b1" max="255" min="0" name="light-b1" type="number"
+                                value="207">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h3>Light 3</h3>
+                    <div class="form-group mb-3">
+                        <div class="form-label">position</div>
+                        <div class="input-group">
+                            <span class="input-group-text">x</span>
+                            <input class="form-control" id="light-x2" name="light-x2" type="number" value="1000.0">
+                            <span class="input-group-text">y</span>
+                            <input class="form-control" id="light-y2" name="light-y2" type="number" value="-1000.0">
+                            <span class="input-group-text">z</span>
+                            <input class="form-control" id="light-z2" name="light-z2" type="number" value="1000.0">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="form-label">color</div>
+                        <div class="input-group">
+                            <span class="input-group-text">r</span>
+                            <input class="form-control" id="light-r2" max="255" min="0" name="light-r2" type="number"
+                                value="254">
+                            <span class="input-group-text">g</span>
+                            <input class="form-control" id="light-g2" max="255" min="0" name="light-g2" type="number"
+                                value="213">
+                            <span class="input-group-text">b</span>
+                            <input class="form-control" id="light-b2" max="255" min="0" name="light-b2" type="number"
+                                value="82">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="./js/glMatrix-0.9.5.min.js"></script>
+    <script src="./js/index.js"></script>
+
+</body>
+
+</html>
