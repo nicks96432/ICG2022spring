@@ -1,1 +1,2 @@
 在瀏覽器打開index.html即可執行。
+若使用firefox，須在about:config中將security.fileuri.strict_origin_policy設為false。
